@@ -5,6 +5,7 @@
   "main": "dist/bundle.cjs.js",
   "module": "dist/bundle.esm.js",
   "sideEffects": false,
+  "files": ["dist"],
   "scripts": {
     "build": "rollup -c"
   },
