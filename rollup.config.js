@@ -1,7 +1,7 @@
 import resolve from 'rollup-plugin-node-resolve';
 import babel from 'rollup-plugin-babel';
 import css from 'rollup-plugin-css-only'
-// import { terser } from "rollup-plugin-terser";
+import { terser } from "rollup-plugin-terser";
 
 export default {
   input: 'src/index.js',
@@ -21,6 +21,6 @@ export default {
       exclude: 'node_modules/**'
     }),
     css({ output: 'dist/bundle.css' }),
-    // terser()
+    terser()
   ]
 };
