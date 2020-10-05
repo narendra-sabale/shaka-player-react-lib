@@ -71,15 +71,16 @@ class VideoPlayer extends React.PureComponent{
     }
     
     video.onloadedmetadata = () => {
-      if (seekTime > video.duration) {
+      if (!isNaN(seekTime) && (seekTime > video.duration)) {
         onVideoEnd && onVideoEnd()
       }
     }
 
     video.addEventListener('loadeddata', () => {
       getCurrentSeekTime && getCurrentSeekTime()
-      video.currentTime = seekTime
-
+      if (!isNaN(seekTime)) {
+        video.currentTime = seekTime
+      }
       if(video.paused) {
         playVideo()
       }
@@ -108,7 +109,7 @@ class VideoPlayer extends React.PureComponent{
   componentDidUpdate(prevProps) {
     if (prevProps.seekTime !== this.props.seekTime) {
       let video = this.videoRef.current;
-      if(video.duration) { 
+      if(video.duration && !isNaN(seekTime)) { 
         const {seekTime, onVideoEnd} = this.props
         if (seekTime > video.duration) {
           onVideoEnd && onVideoEnd()
