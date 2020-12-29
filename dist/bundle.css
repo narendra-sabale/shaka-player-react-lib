@@ -1,0 +1,15 @@
+.shaka-controls-container,
+.shaka-spinner-container,
+.shaka-text-container,
+.shaka-hidden {
+  display: none; 
+}
+
+.shaka-video-container {
+  display: contents; 
+}
+
+.shaka-video {
+  object-fit: contain;
+  margin: 0 auto; 
+}
