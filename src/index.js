@@ -20,7 +20,7 @@ class VideoPlayer extends React.PureComponent{
 	}
 
 	componentDidMount() {
-    const {src, srcKey, authToken, seekTime=0, streamingConfig, abrConfig, drmConfig, uiConfig, onVideoEnd, onPlayFailed, getCurrentSeekTime, removeRightClick, disableControls, disableConsoleControls} = this.props
+    const {src, srcKey, authToken, seekTime=0, streamingConfig, abrConfig, restrictions, drmConfig, uiConfig, onVideoEnd, onPlayFailed, getCurrentSeekTime, removeRightClick, disableControls, disableConsoleControls} = this.props
     
     const video = this.videoRef.current;
 		const videoContainer = this.videoContainer.current;
@@ -30,7 +30,8 @@ class VideoPlayer extends React.PureComponent{
     player.configure({ 
       streaming : {...streamingConfig}, 
       abr: {...abrConfig}, 
-      drm: {...drmConfig}
+      drm: {...drmConfig},
+      restrictions: {...restrictions}
     });
 
     player.getNetworkingEngine().registerRequestFilter(function (type, request) {
