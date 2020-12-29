@@ -105,6 +105,21 @@ class VideoPlayer extends React.PureComponent{
         });
       }
     } 
+
+    document.getElementsByClassName('shaka-video-container')[0].setAttribute("shaka-controls", "true")
+    if(!document.getElementsByClassName("shaka-skim-container")[0]){
+      let ele = document.createElement("div");
+      ele.setAttribute("class", "shaka-skim-container");
+      let parentEle = document.getElementsByClassName('shaka-controls-container')[0]
+      parentEle.insertBefore(ele, document.getElementsByClassName('shaka-bottom-controls')[0])
+    }
+    let controlEle = document.getElementsByClassName('shaka-settings-menu')
+    if(!controlEle[0].classList.contains("shaka-hidden")){
+      controlEle[0].classList.add("shaka-hidden")
+    }
+    if(!controlEle[1].classList.contains("shaka-hidden")){
+      controlEle[1].classList.add("shaka-hidden")
+    }
   }
 
   componentDidUpdate(prevProps) {
