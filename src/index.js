@@ -20,7 +20,7 @@ class VideoPlayer extends React.PureComponent{
 	}
 
 	componentDidMount() {
-    const {src, srcKey, authToken, seekTime=0, streamingConfig, abrConfig, drmConfig, uiConfig, onVideoEnd, onPlayFailed, getCurrentSeekTime, removeRightClick, disableControls, disableConsoleControls} = this.props
+    const {src, srcKey, authToken, seekTime=0, streamingConfig, abrConfig, restrictions={}, drmConfig, uiConfig, onVideoEnd, onPlayFailed, getCurrentSeekTime, removeRightClick, disableControls, disableConsoleControls} = this.props
     
     const video = this.videoRef.current;
 		const videoContainer = this.videoContainer.current;
@@ -30,7 +30,8 @@ class VideoPlayer extends React.PureComponent{
     player.configure({ 
       streaming : {...streamingConfig}, 
       abr: {...abrConfig}, 
-      drm: {...drmConfig}
+      drm: {...drmConfig},
+      restrictions: {...restrictions}
     });
 
     player.getNetworkingEngine().registerRequestFilter(function (type, request) {
@@ -104,6 +105,21 @@ class VideoPlayer extends React.PureComponent{
         });
       }
     } 
+
+    document.getElementsByClassName('shaka-video-container')[0].setAttribute("shaka-controls", "true")
+    if(!document.getElementsByClassName("shaka-skim-container")[0]){
+      let ele = document.createElement("div");
+      ele.setAttribute("class", "shaka-skim-container");
+      let parentEle = document.getElementsByClassName('shaka-controls-container')[0]
+      parentEle.insertBefore(ele, document.getElementsByClassName('shaka-bottom-controls')[0])
+    }
+    let controlEle = document.getElementsByClassName('shaka-settings-menu')
+    if(!controlEle[0].classList.contains("shaka-hidden")){
+      controlEle[0].classList.add("shaka-hidden")
+    }
+    if(!controlEle[1].classList.contains("shaka-hidden")){
+      controlEle[1].classList.add("shaka-hidden")
+    }
   }
 
   componentDidUpdate(prevProps) {
